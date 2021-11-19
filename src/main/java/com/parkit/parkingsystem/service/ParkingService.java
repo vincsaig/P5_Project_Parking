@@ -108,8 +108,13 @@ public class ParkingService {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);
                 parkingSpotDAO.updateParking(parkingSpot);
-                System.out.println("Please pay the parking fare:" + ticket.getPrice());
-                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                if((ticket.getPrice() > 0.5)){
+                    System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                    System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                } else{
+                    System.out.println("Parking is free for a stay shorter than 30 minutes");
+                    System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                }
             }else{
                 System.out.println("Unable to update ticket information. Error occurred");
             }
