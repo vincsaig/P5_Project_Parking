@@ -16,17 +16,23 @@ import com.parkit.parkingsystem.model.Ticket;
         //TODO: Some tests are failing here. Need to check if this logic is correct
 <span class="fc" id="L17">        double duration = (((outHour - inHour)/1000)/60)/60;</span>
 
-<span class="pc bpc" id="L19" title="1 of 3 branches missed.">        switch (ticket.getParkingSpot().getParkingType()){</span>
-            case CAR: {
-<span class="fc" id="L21">                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L22">                break;</span>
+        //Parking durations under or equal to 30 minutes are free
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (duration &gt; 0.5){</span>
+<span class="pc bpc" id="L21" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()){</span>
+                case CAR: {
+<span class="fc" id="L23">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L24">                    break;</span>
+                }
+                case BIKE: {
+<span class="fc" id="L27">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L28">                    break;</span>
+                }
+<span class="nc" id="L30">                default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
             }
-            case BIKE: {
-<span class="fc" id="L25">                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
-<span class="fc" id="L26">                break;</span>
-            }
-<span class="nc" id="L28">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
         }
-<span class="fc" id="L30">    }</span>
+        else{
+<span class="fc" id="L34">            ticket.setPrice(0);</span>
+        }
+<span class="fc" id="L36">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
