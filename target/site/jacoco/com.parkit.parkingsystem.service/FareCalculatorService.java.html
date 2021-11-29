@@ -22,37 +22,25 @@ import com.parkit.parkingsystem.model.Ticket;
         //Parking durations under or equal to 30 minutes are free
 <span class="fc bfc" id="L23" title="All 2 branches covered.">        if (duration &gt; 0.5){</span>
             //If the list happens to have multiple tickets, the user already parked here, so add a discount
-<span class="fc bfc" id="L25" title="All 2 branches covered.">            if(tickets.size() &gt; 1){</span>
-<span class="fc" id="L26">                System.out.println(&quot;You've been here before, have a 5% discount&quot;);</span>
-<span class="pc bpc" id="L27" title="2 of 3 branches missed.">                switch (ticket.getParkingSpot().getParkingType()){</span>
-                    case CAR: {
-<span class="nc" id="L29">                        ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR * Fare.DISCOUNT);</span>
-<span class="nc" id="L30">                        break;</span>
-                    }
-                    case BIKE: {
-<span class="fc" id="L33">                        ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR * Fare.DISCOUNT);</span>
-<span class="fc" id="L34">                        break;</span>
-                    }
-<span class="nc" id="L36">                    default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
+<span class="pc bpc" id="L25" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()){</span>
+                case CAR: {
+<span class="fc" id="L27">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L28">                    break;</span>
                 }
-<span class="nc" id="L38">            }</span>
-            else{
-<span class="pc bpc" id="L40" title="1 of 3 branches missed.">                switch (ticket.getParkingSpot().getParkingType()){</span>
-                    case CAR: {
-<span class="fc" id="L42">                        ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L43">                        break;</span>
-                    }
-                    case BIKE: {
-<span class="fc" id="L46">                        ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
-<span class="fc" id="L47">                        break;</span>
-                    }
-<span class="nc" id="L49">                    default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
+                case BIKE: {
+<span class="fc" id="L31">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L32">                    break;</span>
                 }
+<span class="nc" id="L34">                default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
             }
-        }
+            //If the list happens to have multiple tickets, the user already parked here, so add a discount
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            if(tickets.size() &gt; 1){</span>
+<span class="fc" id="L38">                ticket.setPrice(ticket.getPrice() * Fare.DISCOUNT);</span>
+            }
+<span class="fc" id="L40">        }</span>
         else{
-<span class="fc" id="L54">            ticket.setPrice(0);</span>
+<span class="fc" id="L42">            ticket.setPrice(0);</span>
         }
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L44">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

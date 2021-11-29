@@ -21,7 +21,6 @@ public class FareCalculatorService {
 
         //Parking durations under or equal to 30 minutes are free
         if (duration > 0.5){
-            //If the list happens to have multiple tickets, the user already parked here, so add a discount
             switch (ticket.getParkingSpot().getParkingType()){
                 case CAR: {
                     ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
