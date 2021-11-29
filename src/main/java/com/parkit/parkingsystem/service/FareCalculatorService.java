@@ -22,32 +22,20 @@ public class FareCalculatorService {
         //Parking durations under or equal to 30 minutes are free
         if (duration > 0.5){
             //If the list happens to have multiple tickets, the user already parked here, so add a discount
-            if(tickets.size() > 1){
-                System.out.println("You've been here before, have a 5% discount");
-                switch (ticket.getParkingSpot().getParkingType()){
-                    case CAR: {
-                        ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR * Fare.DISCOUNT);
-                        break;
-                    }
-                    case BIKE: {
-                        ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR * Fare.DISCOUNT);
-                        break;
-                    }
-                    default: throw new IllegalArgumentException("Unknown Parking Type");
+            switch (ticket.getParkingSpot().getParkingType()){
+                case CAR: {
+                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+                    break;
                 }
+                case BIKE: {
+                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+                    break;
+                }
+                default: throw new IllegalArgumentException("Unknown Parking Type");
             }
-            else{
-                switch (ticket.getParkingSpot().getParkingType()){
-                    case CAR: {
-                        ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
-                        break;
-                    }
-                    case BIKE: {
-                        ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
-                        break;
-                    }
-                    default: throw new IllegalArgumentException("Unknown Parking Type");
-                }
+            //If the list happens to have multiple tickets, the user already parked here, so add a discount
+            if(tickets.size() > 1){
+                ticket.setPrice(ticket.getPrice() * Fare.DISCOUNT);
             }
         }
         else{
