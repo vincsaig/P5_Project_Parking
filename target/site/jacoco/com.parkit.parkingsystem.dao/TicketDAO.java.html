@@ -15,11 +15,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-<span class="nc" id="L18">public class TicketDAO {</span>
+<span class="fc" id="L18">public class TicketDAO {</span>
 
 <span class="fc" id="L20">    private static final Logger logger = LogManager.getLogger(&quot;TicketDAO&quot;);</span>
 
-<span class="nc" id="L22">    public DataBaseConfig dataBaseConfig = new DataBaseConfig();</span>
+<span class="fc" id="L22">    public DataBaseConfig dataBaseConfig = new DataBaseConfig();</span>
 
     public boolean saveTicket(Ticket ticket){
 <span class="nc" id="L25">        Connection con = null;</span>
@@ -43,9 +43,9 @@ import java.util.List;
     }
 
     public List&lt;Ticket&gt; getTicket(String vehicleRegNumber) {
-<span class="nc" id="L46">        Connection con = null;</span>
-<span class="nc" id="L47">        Ticket ticket = null;</span>
-<span class="nc" id="L48">        List&lt;Ticket&gt; tickets = new ArrayList&lt;Ticket&gt;();</span>
+<span class="fc" id="L46">        Connection con = null;</span>
+<span class="fc" id="L47">        Ticket ticket = null;</span>
+<span class="fc" id="L48">        List&lt;Ticket&gt; tickets = new ArrayList&lt;Ticket&gt;();</span>
         try {
 <span class="nc" id="L50">            con = dataBaseConfig.getConnection();</span>
 <span class="nc" id="L51">            PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);</span>
@@ -65,11 +65,11 @@ import java.util.List;
             }
 <span class="nc" id="L66">            dataBaseConfig.closeResultSet(rs);</span>
 <span class="nc" id="L67">            dataBaseConfig.closePreparedStatement(ps);</span>
-<span class="nc" id="L68">        }catch (Exception ex){</span>
-<span class="nc" id="L69">            logger.error(&quot;Error fetching next available slot&quot;,ex);</span>
+<span class="pc" id="L68">        }catch (Exception ex){</span>
+<span class="fc" id="L69">            logger.error(&quot;Error fetching next available slot&quot;,ex);</span>
 <span class="nc" id="L70">        }finally {</span>
-<span class="nc" id="L71">            dataBaseConfig.closeConnection(con);</span>
-<span class="nc" id="L72">            return tickets;</span>
+<span class="fc" id="L71">            dataBaseConfig.closeConnection(con);</span>
+<span class="fc" id="L72">            return tickets;</span>
         }
     }
 

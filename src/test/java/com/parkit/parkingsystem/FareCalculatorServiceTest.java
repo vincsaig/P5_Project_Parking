@@ -73,7 +73,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         tickets.add(ticket);
-        //assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(tickets));
+        assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(tickets));
     }
 
     @Test
