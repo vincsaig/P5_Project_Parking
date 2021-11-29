@@ -33,7 +33,7 @@ public class FareCalculatorService {
                         ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR * Fare.DISCOUNT);
                         break;
                     }
-                    default: throw new IllegalArgumentException("Unkown Parking Type");
+                    default: throw new IllegalArgumentException("Unknown Parking Type");
                 }
             }
             else{
@@ -46,7 +46,7 @@ public class FareCalculatorService {
                         ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                         break;
                     }
-                    default: throw new IllegalArgumentException("Unkown Parking Type");
+                    default: throw new IllegalArgumentException("Unknown Parking Type");
                 }
             }
         }
