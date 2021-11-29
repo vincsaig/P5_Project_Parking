@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
+import java.util.List;
 
 public class ParkingService {
 
@@ -20,6 +21,7 @@ public class ParkingService {
     private InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private  TicketDAO ticketDAO;
+    private double discount = 0.95;
 
     public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
         this.inputReaderUtil = inputReaderUtil;
@@ -100,7 +102,8 @@ public class ParkingService {
     public void processExitingVehicle() {
         try{
             String vehicleRegNumber = getVehichleRegNumber();
-            Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
+            List<Ticket> tickets = ticketDAO.getTicket(vehicleRegNumber);
+            Ticket ticket = tickets.get(0);
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             fareCalculatorService.calculateFare(ticket);
@@ -109,9 +112,15 @@ public class ParkingService {
                 parkingSpot.setAvailable(true);
                 parkingSpotDAO.updateParking(parkingSpot);
                 if((ticket.getPrice() > 0.5)){
-                    System.out.println("Please pay the parking fare:" + ticket.getPrice());
-                    System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
-                } else{
+                    if(tickets.size() > 1){
+                        System.out.println("You've been here before, here's a 5% discount, please pay the parking fare: " + ticket.getPrice() * discount);
+                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                    }
+                    else{
+                        System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                    }
+                }else{
                     System.out.println("Parking is free for a stay shorter than 30 minutes");
                     System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
                 }
