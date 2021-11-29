@@ -21,7 +21,6 @@ public class ParkingService {
     private InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private  TicketDAO ticketDAO;
-    private double discount = 0.95;
 
     public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
         this.inputReaderUtil = inputReaderUtil;
@@ -103,23 +102,17 @@ public class ParkingService {
         try{
             String vehicleRegNumber = getVehichleRegNumber();
             List<Ticket> tickets = ticketDAO.getTicket(vehicleRegNumber);
-            Ticket ticket = tickets.get(0);
             Date outTime = new Date();
+            Ticket ticket = tickets.get(0);
             ticket.setOutTime(outTime);
-            fareCalculatorService.calculateFare(ticket);
+            fareCalculatorService.calculateFare(tickets);
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);
                 parkingSpotDAO.updateParking(parkingSpot);
                 if((ticket.getPrice() > 0.5)){
-                    if(tickets.size() > 1){
-                        System.out.println("You've been here before, here's a 5% discount, please pay the parking fare: " + ticket.getPrice() * discount);
-                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
-                    }
-                    else{
-                        System.out.println("Please pay the parking fare:" + ticket.getPrice());
-                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
-                    }
+                    System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                    System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
                 }else{
                     System.out.println("Parking is free for a stay shorter than 30 minutes");
                     System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
