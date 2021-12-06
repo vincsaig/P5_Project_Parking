@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.lang.Thread;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -57,6 +58,10 @@ public class ParkingDataBaseIT {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
         assertEquals(1, ticketDAO.getTicket("ABCDEF").size(),"Il n'y a pas de ticket en base");
         ParkingSpot parkingSpot = ticketDAO.getTicket("ABCDEF").get(0).getParkingSpot();
         assertEquals(false, parkingSpot.isAvailable(),"Parking availability was not updated correctly");
@@ -68,6 +73,10 @@ public class ParkingDataBaseIT {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
         //TODO: check that the fare generated and out time are populated correctly in the database
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
         assertEquals(0, ticketDAO.getTicket("ABCDEF").get(0).getPrice(),"Fare was not generated correctly");
         assertNotEquals(null, ticketDAO.getTicket("ABCDEF").get(0).getOutTime(),"Out time was not populated correctly");
     }
