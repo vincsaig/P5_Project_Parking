@@ -30,7 +30,6 @@ public class FareCalculatorService {
                     ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                     break;
                 }
-                default: throw new IllegalArgumentException("Unknown Parking Type");
             }
             //If the list happens to have multiple tickets, the user already parked here, so add a discount
             if(tickets.size() > 1){

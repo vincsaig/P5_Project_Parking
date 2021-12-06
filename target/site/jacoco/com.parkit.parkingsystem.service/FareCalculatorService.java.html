@@ -21,26 +21,24 @@ import com.parkit.parkingsystem.model.Ticket;
 
         //Parking durations under or equal to 30 minutes are free
 <span class="fc bfc" id="L23" title="All 2 branches covered.">        if (duration &gt; 0.5){</span>
-            //If the list happens to have multiple tickets, the user already parked here, so add a discount
-<span class="pc bpc" id="L25" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()){</span>
+<span class="pc bpc" id="L24" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()){</span>
                 case CAR: {
-<span class="fc" id="L27">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L28">                    break;</span>
+<span class="fc" id="L26">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L27">                    break;</span>
                 }
                 case BIKE: {
-<span class="fc" id="L31">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
-<span class="fc" id="L32">                    break;</span>
+<span class="fc" id="L30">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+                    break;
                 }
-<span class="nc" id="L34">                default: throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
             }
             //If the list happens to have multiple tickets, the user already parked here, so add a discount
-<span class="fc bfc" id="L37" title="All 2 branches covered.">            if(tickets.size() &gt; 1){</span>
-<span class="fc" id="L38">                ticket.setPrice(ticket.getPrice() * Fare.DISCOUNT);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if(tickets.size() &gt; 1){</span>
+<span class="fc" id="L36">                ticket.setPrice(ticket.getPrice() * Fare.DISCOUNT);</span>
             }
-<span class="fc" id="L40">        }</span>
+<span class="fc" id="L38">        }</span>
         else{
-<span class="fc" id="L42">            ticket.setPrice(0);</span>
+<span class="fc" id="L40">            ticket.setPrice(0);</span>
         }
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
