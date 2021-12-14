@@ -62,7 +62,7 @@ public class ParkingDataBaseIT {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
-        assertEquals(1, ticketDAO.getTicket("ABCDEF").size(),"Il n'y a pas de ticket en base");
+        assertEquals(1, ticketDAO.getTicket("ABCDEF").size(),"No ticket were saved in Database");
         ParkingSpot parkingSpot = ticketDAO.getTicket("ABCDEF").get(0).getParkingSpot();
         assertEquals(false, parkingSpot.isAvailable(),"Parking availability was not updated correctly");
     }
